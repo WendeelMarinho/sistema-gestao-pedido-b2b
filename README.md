@@ -1,14 +1,14 @@
 🛒 Sistema de Gestão de Pedidos B2B
 Microserviço RESTful para gerenciamento de pedidos B2B com foco em alta concorrência e escalabilidade.
 <p align="center">
-<img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17">
-<img src="https://img.shields.io/badge/Spring_Boot-3.3.0-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="Spring Boot 3.3.0">
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
-<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
-<img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white" alt="Maven">
+<a href="https://www.java.com" target="_blank"><img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17"></a>
+<a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://img.shields.io/badge/Spring_Boot-3.3.0-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="Spring Boot 3.3.0"></a>
+<a href="https://www.docker.com" target="_blank"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"></a>
+<a href="https://www.postgresql.org" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"></a>
+<a href="https://maven.apache.org" target="_blank"><img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white" alt="Maven"></a>
 <img src="https://img.shields.io/badge/status-concluído-brightgreen?style=for-the-badge" alt="Status do Projeto">
 </p>
-Índice
+📋 Índice
 📜 Sobre o Projeto
 ✨ Funcionalidades
 🏗️ Arquitetura e Decisões de Design
@@ -73,7 +73,7 @@ Persistência	Spring Data JPA + Hibernate	ORM para abstração e acesso a dados.
 Banco de Dados	PostgreSQL	Banco de dados relacional robusto e confiável.
 Containerização	Docker & Docker Compose	Criação de um ambiente de execução consistente.
 Build	Maven	Gerenciamento de dependências e build.
-Documentação	Springdoc OpenAPI (Swagger UI)	Geração automática de documentação da API.
+Documentação	Springdoc OpenAPI	Geração automática de documentação da API.
 Testes	JUnit 5 & Mockito	Testes unitários para garantir a qualidade.
 ⚙️ Pré-requisitos
 🛠️ Ferramenta	📋 Versão	🎯 Necessário para
@@ -85,16 +85,17 @@ Maven	3.8+	⚠️ Build local
 🚀 Guia de Execução
 🐳 Método Recomendado: Docker Compose
 Clone o repositório:
-git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-cd SEU_REPOSITORIO
+git clone https://github.com/WendeelMarinho/sistema-gestao-pedido-b2b.git
+cd sistema-gestao-pedido-b2b
 Use code with caution.
 Bash
 Construa a aplicação com Maven:
 (Isso gera o arquivo .jar que será usado pelo Docker)
-# Linux/macOS
+Linux/macOS
 ./mvnw clean package
-
-# Windows
+Use code with caution.
+Bash
+Windows
 mvnw.cmd clean package
 Use code with caution.
 Bash
