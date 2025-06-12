@@ -1,242 +1,806 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>README - Sistema de Gestão de Pedidos B2B</title>
-<style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background-color: #f9f9f9;
-    color: #222;
-    margin: 0; padding: 0 1rem;
-    line-height: 1.6;
-  }
-  main {
-    max-width: 900px;
-    margin: 2rem auto;
-    background: white;
-    padding: 2rem 3rem;
-    box-shadow: 0 0 15px rgb(0 0 0 / 0.1);
-    border-radius: 8px;
-  }
-  h1, h2, h3 {
-    color: #2c3e50;
-    margin-top: 1.5rem;
-  }
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.3rem;
-  }
-  hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 1.5rem 0;
-  }
-  .badges {
-    margin-bottom: 1rem;
-  }
-  .badges img {
-    margin-right: 0.4rem;
-    height: 32px;
-    vertical-align: middle;
-  }
-  code, pre {
-    background: #f3f4f6;
-    border-radius: 4px;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    font-size: 0.95rem;
-  }
-  pre {
-    padding: 1rem;
-    overflow-x: auto;
-    margin: 1rem 0;
-  }
-  code {
-    padding: 0.2rem 0.4rem;
-  }
-  a {
-    color: #0077cc;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  ul {
-    margin-left: 1.5rem;
-  }
-  .footer {
-    margin-top: 3rem;
-    font-size: 0.9rem;
-    color: #666;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-    text-align: center;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Pedidos B2B</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: -20px -20px 40px -20px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge.java { background: #ED8B00; }
+        .badge.spring { background: #6DB33F; }
+        .badge.docker { background: #2496ED; }
+        .badge.postgresql { background: #316192; }
+        .badge.maven { background: #C71A36; }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            color: #4a5568;
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li::before {
+            content: "✅";
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #a0aec0;
+            text-transform: uppercase;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 60px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #3182ce;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .table th,
+        .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .table tr:hover {
+            background: #f7fafc;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pendente { background: #fed7d7; color: #c53030; }
+        .status-aprovado { background: #c6f6d5; color: #38a169; }
+        .status-enviado { background: #bee3f8; color: #3182ce; }
+        .status-entregue { background: #d4edda; color: #155724; }
+        .status-cancelado { background: #f8d7da; color: #721c24; }
+        .status-rejeitado { background: #f5c6cb; color: #721c24; }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid;
+        }
+
+        .alert.info {
+            background: #ebf8ff;
+            border-color: #3182ce;
+            color: #2c5282;
+        }
+
+        .alert.warning {
+            background: #fffbeb;
+            border-color: #d69e2e;
+            color: #744210;
+        }
+
+        .alert.success {
+            background: #f0fff4;
+            border-color: #38a169;
+            color: #22543d;
+        }
+
+        .architecture-diagram {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .layer {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 5px 0;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .layer.controller { border-color: #4299e1; }
+        .layer.service { border-color: #38a169; }
+        .layer.repository { border-color: #ed8936; }
+        .layer.model { border-color: #9f7aea; }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #2d3748;
+            color: white;
+            margin: 40px -20px -20px -20px;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+        }
+
+        .footer a {
+            color: #63b3ed;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-<main>
-  <h1>Sistema de Gestão de Pedidos B2B</h1>
+    <div class="container">
+        <header class="header">
+            <h1>🛒 Sistema de Gestão de Pedidos B2B</h1>
+            <p>Microserviço RESTful para gerenciamento de pedidos B2B com alta concorrência e escalabilidade</p>
+            
+            <div class="badges">
+                <a href="#" class="badge java">Java 17</a>
+                <a href="#" class="badge spring">Spring Boot 3.3.0</a>
+                <a href="#" class="badge docker">Docker</a>
+                <a href="#" class="badge postgresql">PostgreSQL</a>
+                <a href="#" class="badge maven">Maven</a>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#sobre" class="nav-link">🚀 Começar</a>
+                <a href="#endpoints" class="nav-link">📖 Documentação</a>
+                <a href="#testes" class="nav-link">🧪 Testes</a>
+                <a href="#autor" class="nav-link">🛠️ Contribuir</a>
+            </div>
+        </header>
 
-  <div class="badges">
-    <img src="https://img.shields.io/badge/Java-17-blue.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17" />
-    <img src="https://img.shields.io/badge/Spring%20Boot-3.3.0-brightgreen.svg?style=for-the-badge&logo=spring-boot&logoColor=white" alt="Spring Boot 3.3.0" />
-    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-    <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
-    <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white" alt="Maven" />
-  </div>
+        <section id="sobre" class="section">
+            <h2>📜 Sobre o Projeto</h2>
+            <p>Este projeto é um <span class="highlight">microserviço RESTful</span> robusto para gerenciamento de pedidos B2B, desenvolvido como solução para um desafio técnico. A aplicação é responsável por receber, processar e gerenciar pedidos de parceiros comerciais, com foco em:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h4>🔄 Escalabilidade Horizontal</h4>
+                    <p>Arquitetura preparada para crescer conforme a demanda, com containers Docker e load balancing.</p>
+                </div>
+                <div class="card">
+                    <h4>⚡ Alta Concorrência</h4>
+                    <p>Sistema de lock otimista para garantir consistência em operações simultâneas.</p>
+                </div>
+                <div class="card">
+                    <h4>🛡️ Consistência de Dados</h4>
+                    <p>Transações ACID e controle de versioning para integridade dos dados.</p>
+                </div>
+                <div class="card">
+                    <h4>📊 Observabilidade</h4>
+                    <p>Monitoramento integrado com Spring Actuator e health checks.</p>
+                </div>
+            </div>
+        </section>
 
-  <hr />
+        <section class="section">
+            <h2>✨ Funcionalidades</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h4>🔧 API REST Completa</h4>
+                    <ul class="feature-list">
+                        <li>CRUD completo para pedidos</li>
+                        <li>Filtros avançados por status e período</li>
+                        <li>Busca otimizada com paginação</li>
+                        <li>Validação de dados robuста</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>💰 Sistema de Crédito Inteligente</h4>
+                    <ul class="feature-list">
+                        <li>Validação automática de limite</li>
+                        <li>Débito na aprovação</li>
+                        <li>Restauração no cancelamento</li>
+                        <li>Controle de concorrência</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>📧 Sistema de Notificações</h4>
+                    <ul class="feature-list">
+                        <li>Notificações automáticas</li>
+                        <li>Múltiplos canais (simulado)</li>
+                        <li>Tracking de eventos</li>
+                        <li>Logs estruturados</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-  <h2>📜 Sobre o Projeto</h2>
-  <p>
-    Este projeto é um microserviço RESTful para gerenciamento de pedidos B2B, desenvolvido para um desafio técnico.
-    A aplicação recebe, processa e gerencia pedidos de parceiros comerciais, com foco em escalabilidade, concorrência e boas práticas de desenvolvimento.
-  </p>
-  <p>
-    A solução foi construída com <strong>Java 17</strong>, <strong>Spring Boot 3.3.0</strong>, e containerizada com <strong>Docker</strong> para garantir um ambiente consistente e fácil de configurar.
-  </p>
+        <section class="section">
+            <h2>🏗️ Arquitetura e Decisões de Design</h2>
+            
+            <h3>🏛️ Arquitetura em Camadas</h3>
+            <div class="architecture-diagram">
+                <div class="layer controller">Controller - REST API Layer</div>
+                <div class="layer service">Service - Business Logic</div>
+                <div class="layer repository">Repository - Data Access Layer</div>
+                <div class="layer model">Model - Entity Layer</div>
+            </div>
+            
+            <h3>🔐 Tratamento de Concorrência</h3>
+            <p><strong>Lock Otimista</strong> implementado na entidade Parceiro:</p>
+            
+            <div class="code-block" data-lang="java">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+@Entity
+public class Parceiro {
+    @Version
+    private Long version; // Controle de concorrência
+    
+    private BigDecimal limiteCredito;
+    // ...
+}
+            </div>
+            
+            <div class="alert info">
+                <strong>💡 Benefícios:</strong> Previne condições de corrida, mantém consistência de dados, performance superior ao lock pessimista e escalabilidade horizontal.
+            </div>
+        </section>
 
-  <hr />
+        <section class="section">
+            <h2>🚀 Tecnologias Utilizadas</h2>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>🛠️ Categoria</th>
+                        <th>📦 Tecnologia</th>
+                        <th>📝 Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Backend</td>
+                        <td>Java 17</td>
+                        <td>LTS com melhorias de performance</td>
+                    </tr>
+                    <tr>
+                        <td>Framework</td>
+                        <td>Spring Boot 3.3.0</td>
+                        <td>Framework principal</td>
+                    </tr>
+                    <tr>
+                        <td>Persistência</td>
+                        <td>Spring Data JPA + Hibernate</td>
+                        <td>ORM e acesso a dados</td>
+                    </tr>
+                    <tr>
+                        <td>Banco de Dados</td>
+                        <td>PostgreSQL</td>
+                        <td>Banco relacional robusto</td>
+                    </tr>
+                    <tr>
+                        <td>Containerização</td>
+                        <td>Docker & Docker Compose</td>
+                        <td>Ambiente consistente</td>
+                    </tr>
+                    <tr>
+                        <td>Build</td>
+                        <td>Maven</td>
+                        <td>Gerenciamento de dependências</td>
+                    </tr>
+                    <tr>
+                        <td>Documentação</td>
+                        <td>Springdoc OpenAPI</td>
+                        <td>Swagger UI automático</td>
+                    </tr>
+                    <tr>
+                        <td>Testes</td>
+                        <td>JUnit 5 & Mockito</td>
+                        <td>Testes automatizados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-  <h2>✨ Funcionalidades</h2>
-  <ul>
-    <li><strong>API REST Completa:</strong> CRUD para pedidos.</li>
-    <li><strong>Gestão de Pedidos:</strong>
-      <ul>
-        <li>Cadastro com status inicial <code>PENDENTE</code>.</li>
-        <li>Consulta por ID, status ou intervalo de datas.</li>
-        <li>Atualização de status (ex: <code>APROVADO</code>, <code>ENVIADO</code>).</li>
-        <li>Cancelamento de pedidos.</li>
-      </ul>
-    </li>
-    <li><strong>Sistema de Crédito para Parceiros:</strong>
-      <ul>
-        <li>Limite de crédito gerenciado por parceiro.</li>
-        <li>Validação e débito de crédito na aprovação do pedido.</li>
-        <li>Crédito restaurado se pedido aprovado for cancelado.</li>
-      </ul>
-    </li>
-    <li><strong>Notificações (Simuladas):</strong> Simulação de envio de notificações a cada alteração de status.</li>
-  </ul>
+        <section class="section">
+            <h2>⚙️ Pré-requisitos</h2>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>🛠️ Ferramenta</th>
+                        <th>📋 Versão</th>
+                        <th>🎯 Necessário para</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Docker</strong></td>
+                        <td>20.10+</td>
+                        <td>✅ Execução (Recomendado)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Compose</strong></td>
+                        <td>2.0+</td>
+                        <td>✅ Execução (Recomendado)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Java</strong></td>
+                        <td>17+</td>
+                        <td>⚠️ Desenvolvimento local</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maven</strong></td>
+                        <td>3.8+</td>
+                        <td>⚠️ Build local</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="alert info">
+                <strong>💡 Dica:</strong> Use Docker para uma configuração mais rápida e sem dependências locais!
+            </div>
+        </section>
 
-  <hr />
-
-  <h2>🚀 Tecnologias Utilizadas</h2>
-  <ul>
-    <li><strong>Backend:</strong> Java 17, Spring Boot 3.3.0, Spring Web (REST), Spring Data JPA, Hibernate</li>
-    <li><strong>Banco de Dados:</strong> PostgreSQL</li>
-    <li><strong>Build & Infraestrutura:</strong> Maven, Docker & Docker Compose</li>
-    <li><strong>Documentação e Testes:</strong> Springdoc OpenAPI (Swagger), JUnit 5, Mockito</li>
-  </ul>
-
-  <hr />
-
-  <h2>🏛️ Arquitetura e Decisões de Design</h2>
-  <p>
-    A aplicação segue arquitetura em camadas para garantir separação de responsabilidades:
-  </p>
-  <ul>
-    <li><strong>Controller:</strong> Exposição dos endpoints REST, validação de entrada e roteamento para serviços.</li>
-    <li><strong>Service:</strong> Lógica de negócio, validações, regras de crédito e orquestração.</li>
-    <li><strong>Repository:</strong> Acesso a dados com Spring Data JPA.</li>
-    <li><strong>Model:</strong> Entidades JPA (<code>Pedido</code>, <code>Parceiro</code>, <code>ItemPedido</code>).</li>
-  </ul>
-
-  <h3>Tratamento de Concorrência</h3>
-  <p>
-    Para alta concorrência, foi implementado <strong>Lock Otimista</strong> na entidade <code>Parceiro</code> com a anotação <code>@Version</code>.
-    Isso evita condições de corrida ao debitar crédito simultaneamente, lançando <code>ObjectOptimisticLockingFailureException</code> em casos de conflito, assegurando a consistência dos dados.
-  </p>
-
-  <hr />
-
-  <h2>⚙️ Pré-requisitos</h2>
-  <ul>
-    <li>Java 17+ (necessário somente para desenvolvimento local)</li>
-    <li>Docker e Docker Compose instalados</li>
-  </ul>
-
-  <hr />
-
-  <h2>⚡ Guia de Execução</h2>
-
-  <h3>1. Clone o Repositório</h3>
-  <pre><code>git clone https://github.com/WendeelMarinho/sistema-gestao-pedido-b2b.git
+        <section class="section">
+            <h2>🚀 Guia de Execução</h2>
+            
+            <h3>🐳 Método Recomendado: Docker Compose</h3>
+            
+            <h4>1️⃣ Clone o Repositório</h4>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+git clone https://github.com/WendeelMarinho/sistema-gestao-pedido-b2b.git
 cd sistema-gestao-pedido-b2b
-  </code></pre>
-
-  <h3>2. Construa a Aplicação</h3>
-  <p>Compile e empacote a aplicação usando Maven:</p>
-  <pre><code># Linux/macOS/WSL (pode ser necessário: chmod +x ./mvnw)
+            </div>
+            
+            <h4>2️⃣ Construa a Aplicação</h4>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+# Linux/macOS/WSL
 ./mvnw clean package
 
-# Windows (CMD)
+# Windows
 mvnw.cmd clean package
-  </code></pre>
+            </div>
+            
+            <h4>3️⃣ Inicie os Serviços</h4>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+docker compose up --build -d
+            </div>
+            
+            <h4>4️⃣ Verifique o Status</h4>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+# Verificar logs
+docker compose logs -f
 
-  <h3>3. Inicie os Contêineres com Docker Compose</h3>
-  <pre><code>docker compose up --build -d
-  </code></pre>
-  <p>
-    Isso irá construir a imagem Docker da aplicação, iniciar o contêiner PostgreSQL e a aplicação.
-    Acesse em: <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>
-  </p>
+# Verificar containers
+docker compose ps
+            </div>
+            
+            <h3>🌐 Acessos Disponíveis</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>🔗 Serviço</th>
+                        <th>📍 URL</th>
+                        <th>📝 Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>API</strong></td>
+                        <td><a href="http://localhost:8080">http://localhost:8080</a></td>
+                        <td>Endpoints REST</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Swagger UI</strong></td>
+                        <td><a href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a></td>
+                        <td>Documentação interativa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Health Check</strong></td>
+                        <td><a href="http://localhost:8080/actuator/health">http://localhost:8080/actuator/health</a></td>
+                        <td>Status da aplicação</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🛑 Parando a Aplicação</h3>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+docker compose down
+            </div>
+        </section>
 
-  <h3>4. Parar a Aplicação</h3>
-  <pre><code>docker compose down
-  </code></pre>
+        <section id="endpoints" class="section">
+            <h2>📡 Endpoints da API</h2>
+            
+            <div class="alert info">
+                <strong>📚 Documentação Interativa:</strong> 
+                <a href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a>
+            </div>
+            
+            <h3>🚀 Exemplos Práticos</h3>
+            
+            <h4>📝 Criar um Pedido</h4>
+            <div class="code-block" data-lang="curl">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+curl -X 'POST' \
+  'http://localhost:8080/pedidos' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "idParceiro": 1,
+    "itens": [
+      {
+        "produto": "Notebook Pro",
+        "quantidade": 2,
+        "precoUnitario": 3500.00
+      },
+      {
+        "produto": "Mouse Wireless",
+        "quantidade": 1,
+        "precoUnitario": 150.00
+      }
+    ]
+  }'
+            </div>
+            
+            <h4>✅ Aprovar um Pedido</h4>
+            <div class="code-block" data-lang="curl">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+curl -X 'PATCH' \
+  'http://localhost:8080/pedidos/{ID_DO_PEDIDO}/status' \
+  -H 'Content-Type: application/json' \
+  -d '"APROVADO"'
+            </div>
+            
+            <h4>🔍 Buscar Pedidos por Status</h4>
+            <div class="code-block" data-lang="curl">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+curl -X 'GET' \
+  'http://localhost:8080/pedidos?status=PENDENTE&page=0&size=10'
+            </div>
+            
+            <h4>📊 Buscar Pedidos por Período</h4>
+            <div class="code-block" data-lang="curl">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+curl -X 'GET' \
+  'http://localhost:8080/pedidos?dataInicio=2024-01-01&dataFim=2024-12-31'
+            </div>
+            
+            <h3>📋 Status Disponíveis</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>🏷️ Status</th>
+                        <th>📝 Descrição</th>
+                        <th>💰 Ação no Crédito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="status-badge status-pendente">PENDENTE</span></td>
+                        <td>Pedido aguardando aprovação</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-aprovado">APROVADO</span></td>
+                        <td>Pedido aprovado</td>
+                        <td>➖ Débito</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-enviado">ENVIADO</span></td>
+                        <td>Pedido enviado</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-entregue">ENTREGUE</span></td>
+                        <td>Pedido entregue</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-cancelado">CANCELADO</span></td>
+                        <td>Pedido cancelado</td>
+                        <td>➕ Crédito restaurado</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-rejeitado">REJEITADO</span></td>
+                        <td>Pedido rejeitado</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-  <hr />
+        <section id="testes" class="section">
+            <h2>🧪 Executando os Testes</h2>
+            
+            <h3>🔬 Testes Unitários</h3>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+./mvnw test
+            </div>
+            
+            <h3>📊 Relatório de Cobertura</h3>
+            <div class="code-block" data-lang="bash">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+./mvnw jacoco:report
+            </div>
+            
+            <div class="alert success">
+                <strong>✅ Cobertura de Testes:</strong> O projeto mantém alta cobertura de testes unitários para garantir a qualidade do código.
+            </div>
+        </section>
 
-  <h2>📡 Documentação da API</h2>
-  <p>
-    A documentação interativa Swagger está disponível em: <br />
-    <a href="http://localhost:8080/swagger-ui.html" target="_blank" rel="noopener">http://localhost:8080/swagger-ui.html</a>
-  </p>
+        <section class="section">
+            <h2>💡 Possíveis Melhorias</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h4>🔄 Mensageria</h4>
+                    <p>Implementar sistema de mensageria real (RabbitMQ ou Kafka) para o NotificationService.</p>
+                </div>
+                <div class="card">
+                    <h4>🧪 Testes de Integração</h4>
+                    <p>Adicionar testes de integração (@SpringBootTest) que utilizem Testcontainers.</p>
+                </div>
+                <div class="card">
+                    <h4>🔐 Segurança</h4>
+                    <p>Implementar segurança na API com Spring Security e JWT.</p>
+                </div>
+                <div class="card">
+                    <h4>🚪 API Gateway</h4>
+                    <p>Adicionar um API Gateway para gerenciar o tráfego.</p>
+                </div>
+                <div class="card">
+                    <h4>🔄 CI/CD</h4>
+                    <p>Configurar pipeline de CI/CD (GitHub Actions) para automatizar builds e testes.</p>
+                </div>
+                <div class="card">
+                    <h4>📊 Monitoramento</h4>
+                    <p>Integrar ferramentas de monitoramento como Prometheus e Grafana.</p>
+                </div>
+            </div>
+        </section>
 
-  <hr />
+        <footer id="autor" class="footer">
+            <h3>✒️ Autor</h3>
+            <p><strong>Wendeel Marinho</strong></p>
+            <div>
+                <a href="https://github.com/WendeelMarinho">🐙 GitHub</a>
+                <a href="https://www.linkedin.com/in/wendeel-marinho/">💼 LinkedIn</a>
+            </div>
+        </footer>
+    </div>
 
-  <h2>🛠 Exemplos de Uso com curl</h2>
-
-  <h3>Criar um Pedido</h3>
-  <pre><code>curl -X POST http://localhost:8080/pedidos \
--H "Content-Type: application/json" \
--d '{
-  "idParceiro": 1,
-  "itens": [
-    {
-      "produto": "Notebook Dell",
-      "quantidade": 2,
-      "precoUnitario": 3500.00
-    }
-  ]
-}'
-  </code></pre>
-
-  <h3>Consultar Pedido por ID</h3>
-  <pre><code>curl http://localhost:8080/pedidos/123
-  </code></pre>
-
-  <h3>Atualizar Status do Pedido</h3>
-  <pre><code>curl -X PUT http://localhost:8080/pedidos/123/status \
--H "Content-Type: application/json" \
--d '{"status": "APROVADO"}'
-  </code></pre>
-
-  <hr />
-
-  <h2>🤝 Contato</h2>
-  <p>
-    Desenvolvido por Wendeel Marinho.<br />
-    Para dúvidas ou sugestões, envie um e-mail para <a href="mailto:wendeel@example.com">wendeel@example.com</a>.
-  </p>
-
-  <div class="footer">
-    &copy; 2025 Wendeel Marinho. Todos os direitos reservados.
-  </div>
-</main>
-</body>
-</html>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.textContent.replace('Copiar', '').trim();
+            
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copiado!';
+                button.style.background = '#38a169';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#4299e1';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+                button.textContent =
