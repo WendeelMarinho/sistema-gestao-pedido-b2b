@@ -52,7 +52,7 @@ O sistema permite o gerenciamento completo do ciclo de vida de um pedido, desde 
 O projeto é 100% containerizado. Com **Docker** e **Docker Compose** instalados, basta seguir os passos abaixo.
 
 ### 1. Clone o Repositório
-```bash
+
 git clone https://github.com/WendeelMarinho/sistema-gestao-pedido-b2b.git
 cd sistema-gestao-pedido-b2b
 
