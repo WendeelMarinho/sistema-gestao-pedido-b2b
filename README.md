@@ -1,193 +1,102 @@
-🛒 Sistema de Gestão de Pedidos B2B
-Microserviço RESTful para gerenciamento de pedidos B2B com foco em alta concorrência e escalabilidade.
+<h1 align="center">
+  Sistema de Gestão de Pedidos B2B
+</h1>
+
 <p align="center">
-<a href="https://www.java.com" target="_blank"><img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17"></a>
-<a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://img.shields.io/badge/Spring_Boot-3.3.0-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="Spring Boot 3.3.0"></a>
-<a href="https://www.docker.com" target="_blank"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"></a>
-<a href="https://www.postgresql.org" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"></a>
-<a href="https://maven.apache.org" target="_blank"><img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white" alt="Maven"></a>
-<img src="https://img.shields.io/badge/status-concluído-brightgreen?style=for-the-badge" alt="Status do Projeto">
+  <img alt="Java" src="https://img.shields.io/badge/Java-17-blue.svg?style=for-the-badge&logo=openjdk&logoColor=white">
+  <img alt="Spring Boot" src="https://img.shields.io/badge/Spring%20Boot-3.3.0-brightgreen.svg?style=for-the-badge&logo=spring-boot&logoColor=white">
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white">
+  <img alt="Maven" src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white">
 </p>
-📋 Índice
-📜 Sobre o Projeto
-✨ Funcionalidades
-🏗️ Arquitetura e Decisões de Design
-🚀 Tecnologias Utilizadas
-⚙️ Pré-requisitos
-🚀 Guia de Execução
-📡 Endpoints da API
-🧪 Executando os Testes
-💡 Possíveis Melhorias
-✒️ Autor
-📜 Sobre o Projeto
-Este projeto é um microserviço RESTful robusto para gerenciamento de pedidos B2B, desenvolvido como solução para um desafio técnico. A aplicação é responsável por receber, processar e gerenciar pedidos de parceiros comerciais, com foco em:
-🔄 Escalabilidade Horizontal: Arquitetura preparada para crescer conforme a demanda, com containers Docker e load balancing.
-⚡ Alta Concorrência: Sistema de lock otimista para garantir consistência em operações simultâneas.
-🛡️ Consistência de Dados: Transações ACID e controle de versionamento para integridade dos dados.
-📊 Observabilidade: Monitoramento integrado com Spring Actuator e health checks.
-✨ Funcionalidades
-🔧 API REST Completa
-✅ CRUD completo para pedidos
-✅ Filtros avançados por status e período
-✅ Busca otimizada com paginação
-✅ Validação de dados robusta
-💰 Sistema de Crédito Inteligente
-✅ Validação automática de limite de crédito
-✅ Débito do valor do pedido na aprovação
-✅ Restauração do crédito no cancelamento
-✅ Controle de concorrência para evitar inconsistências
-📧 Sistema de Notificações
-✅ Notificações automáticas sobre mudanças de status
-✅ Múltiplos canais (simulado via logs)
-✅ Tracking de eventos importantes
-✅ Logs estruturados para fácil monitoramento
-🏗️ Arquitetura e Decisões de Design
-🏛️ Arquitetura em Camadas (Layered Architecture)
-O projeto segue uma arquitetura em camadas clássica para garantir a separação de responsabilidades e a manutenibilidade do código.
-Controller (API Layer): Responsável por expor os endpoints REST, receber as requisições, validar os dados de entrada e delegar para a camada de serviço.
-Service (Business Logic): Contém toda a lógica de negócio, como validação de crédito, mudança de status dos pedidos e orquestração das operações.
-Repository (Data Access Layer): Abstrai o acesso ao banco de dados utilizando Spring Data JPA.
-Model (Entity Layer): Representa as entidades do domínio, como Pedido, Parceiro e ItemPedido.
-🔐 Tratamento de Concorrência
-Para lidar com múltiplas atualizações simultâneas no limite de crédito dos parceiros, foi implementado um mecanismo de Lock Otimista utilizando a anotação @Version do JPA na entidade Parceiro.
-@Entity
-public class Parceiro {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Version
-    private Long version; // Controle de concorrência
+<p align="center">
+  Um microserviço RESTful robusto para gerenciamento de pedidos, construído com Java e Spring Boot, e totalmente containerizado com Docker.
+</p>
 
-    private BigDecimal limiteCredito;
-    // ... outros atributos
-}
-Use code with caution.
-Java
-💡 Benefícios: Esta abordagem previne condições de corrida e garante a consistência dos dados com alta performance, sendo mais escalável que o lock pessimista em cenários de alta concorrência.
-🚀 Tecnologias Utilizadas
-🛠️ Categoria	📦 Tecnologia	📝 Descrição
-Backend	Java 17	Versão LTS com melhorias de performance.
-Framework	Spring Boot 3.3.0	Framework principal para criação da API.
-Persistência	Spring Data JPA + Hibernate	ORM para abstração e acesso a dados.
-Banco de Dados	PostgreSQL	Banco de dados relacional robusto e confiável.
-Containerização	Docker & Docker Compose	Criação de um ambiente de execução consistente.
-Build	Maven	Gerenciamento de dependências e build.
-Documentação	Springdoc OpenAPI	Geração automática de documentação da API.
-Testes	JUnit 5 & Mockito	Testes unitários para garantir a qualidade.
-⚙️ Pré-requisitos
-🛠️ Ferramenta	📋 Versão	🎯 Necessário para
-Docker	20.10+	✅ Execução (Recomendado)
-Docker Compose	2.0+	✅ Execução (Recomendado)
-Java (JDK)	17+	⚠️ Desenvolvimento local
-Maven	3.8+	⚠️ Build local
-💡 Dica: A utilização do Docker e Docker Compose é a forma mais simples e rápida de executar o projeto, pois abstrai toda a configuração do ambiente.
-🚀 Guia de Execução
-🐳 Método Recomendado: Docker Compose
-Clone o repositório:
+---
+
+## 📜 Sobre o Projeto
+
+Este projeto é uma solução completa para um desafio técnico de backend, focado na criação de um microserviço para um sistema de gestão de pedidos B2B. A aplicação foi desenvolvida com ênfase em escalabilidade, boas práticas de código e preparação para cenários de alta concorrência.
+
+O sistema permite o gerenciamento completo do ciclo de vida de um pedido, desde sua criação até a entrega, incluindo uma lógica de negócio para controle de crédito dos parceiros comerciais.
+
+---
+
+## ✨ Principais Funcionalidades
+
+-   **API REST Completa:** Endpoints para todas as operações de CRUD (Create, Read, Update, Delete) de pedidos.
+-   **Gestão de Pedidos:** Cadastro, consulta (ID, status, período), atualização de status e cancelamento.
+-   **Sistema de Crédito para Parceiros:** Validação e débito de crédito na aprovação de pedidos, e restauração no cancelamento.
+-   **Notificações (Simuladas):** Mecanismo para simular o envio de notificações a cada mudança de status do pedido.
+-   **Tratamento de Concorrência:** Implementado Lock Otimista (`@Version`) para garantir a consistência de dados em operações simultâneas de crédito.
+
+---
+
+## 🚀 Tecnologias e Ferramentas
+
+| Categoria             | Tecnologias                                                                 |
+| --------------------- | --------------------------------------------------------------------------- |
+| **Linguagem & Framework** | Java 17, Spring Boot 3.3.0                                                  |
+| **API & Web**             | Spring Web (REST), Springdoc OpenAPI (Swagger)                              |
+| **Persistência de Dados** | Spring Data JPA, Hibernate, PostgreSQL                                      |
+| **Testes**                | JUnit 5, Mockito                                                            |
+| **Build & Empacotamento** | Maven                                                                       |
+| **Containerização**     | Docker, Docker Compose                                                      |
+
+---
+
+## ⚡ Guia Rápido de Execução
+
+O projeto é 100% containerizado. Com **Docker** e **Docker Compose** instalados, basta seguir os passos abaixo.
+
+### 1. Clone o Repositório
+```bash
 git clone https://github.com/WendeelMarinho/sistema-gestao-pedido-b2b.git
 cd sistema-gestao-pedido-b2b
-Use code with caution.
-Bash
-Construa a aplicação com Maven:
-(Isso gera o arquivo .jar que será usado pelo Docker)
-Linux/macOS
+
+2. Construa o Projeto com Maven
+Este passo gera o arquivo .jar executável da aplicação.
+# No Linux/macOS/WSL (pode ser necessário dar permissão: chmod +x ./mvnw)
 ./mvnw clean package
-Use code with caution.
-Bash
-Windows
-mvnw.cmd clean package
-Use code with caution.
-Bash
-Inicie os serviços com Docker Compose:
-(Este comando irá construir a imagem da aplicação e subir os containers da API e do banco de dados)
+
+3. Inicie o Ambiente com Docker
+Este comando irá construir as imagens e iniciar os contêineres da aplicação e do banco de dados.
 docker compose up --build -d
-Use code with caution.
-Bash
-Verifique o status:
-Aguarde alguns segundos para a aplicação iniciar. Você pode verificar os logs:
-docker compose logs -f
-Use code with caution.
-Bash
-🌐 Acessos Disponíveis
-Após a inicialização, os seguintes serviços estarão disponíveis:
-🔗 Serviço	📍 URL	📝 Descrição
-API	http://localhost:8080	Endpoints REST.
-Swagger UI	http://localhost:8080/swagger-ui.html	Documentação interativa.
-Health Check	http://localhost:8080/actuator/health	Status da aplicação.
-🛑 Parando a Aplicação
-Para parar e remover os containers, execute:
+
+4. Parando o Ambiente
+Para parar e remover os contêineres, use:
 docker compose down
-Use code with caution.
-Bash
-📡 Endpoints da API
-📚 A documentação completa e interativa da API está disponível no Swagger UI.
-Exemplos com cURL
-📝 Criar um Pedido
+
+📡 API e Documentação
+Documentação Interativa (Swagger)
+A documentação completa e interativa da API, onde você pode testar todos os endpoints, está disponível em:
+http://localhost:8080/swagger-ui.html
+Exemplo: Criar um Pedido
 curl -X 'POST' \
   'http://localhost:8080/pedidos' \
   -H 'Content-Type: application/json' \
   -d '{
-    "idParceiro": 1,
-    "itens": [
-      {
-        "produto": "Notebook Pro",
-        "quantidade": 2,
-        "precoUnitario": 3500.00
-      },
-      {
-        "produto": "Mouse Wireless",
-        "quantidade": 1,
-        "precoUnitario": 150.00
-      }
-    ]
-  }'
+  "idParceiro": 1,
+  "itens": [
+    {
+      "produto": "Notebook Pro",
+      "quantidade": 1,
+      "precoUnitario": 7500.50
+    }
+  ]
+}'
 Use code with caution.
 Bash
-✅ Aprovar um Pedido (substitua {id} pelo ID do pedido)
-curl -X 'PATCH' \
-  'http://localhost:8080/pedidos/{id}/status' \
-  -H 'Content-Type: application/json' \
-  -d '"APROVADO"'
-Use code with caution.
-Bash
-🔍 Buscar Pedidos por Status
-curl -X 'GET' 'http://localhost:8080/pedidos?status=PENDENTE&page=0&size=10'
-Use code with caution.
-Bash
-📋 Status Disponíveis
-🏷️ Status	📝 Descrição	💰 Ação no Crédito
-PENDENTE	Pedido recém-criado, aguardando aprovação.	-
-APROVADO	Pedido aprovado. O valor total é debitado do crédito.	➖ Débito
-ENVIADO	Pedido despachado para o parceiro.	-
-ENTREGUE	Pedido entregue ao parceiro.	-
-CANCELADO	Pedido cancelado. O crédito é restaurado (se já aprovado).	➕ Crédito restaurado
-REJEITADO	Pedido rejeitado por falta de crédito ou outro motivo.	-
-🧪 Executando os Testes
-Para garantir a qualidade e a integridade do código, o projeto possui uma suíte de testes unitários.
-Executar todos os testes:
+✅ Testes Automatizados
+Para executar a suíte de testes unitários do projeto, rode o seguinte comando:
 ./mvnw test
 Use code with caution.
 Bash
-Gerar o relatório de cobertura (Jacoco):
-./mvnw jacoco:report
-Use code with caution.
-Bash
-✅ O relatório estará disponível em target/site/jacoco/index.html.
-💡 Possíveis Melhorias
-Mensageria Assíncrona: Implementar um sistema de mensageria real (RabbitMQ ou Kafka) para o NotificationService, desacoplando o envio de notificações.
-Testes de Integração: Adicionar testes de integração (@SpringBootTest) que utilizem Testcontainers para criar um ambiente de teste com banco de dados real.
-Segurança: Implementar segurança na API com Spring Security e JWT/OAuth2 para autenticação e autorização de endpoints.
-API Gateway: Adicionar um API Gateway (ex: Spring Cloud Gateway) na frente do microserviço para gerenciar rotas, rate limiting e segurança de forma centralizada.
-CI/CD: Configurar um pipeline de Integração Contínua e Entrega Contínua (ex: GitHub Actions) para automatizar o build, testes e deploy da aplicação.
-Monitoramento Avançado: Integrar ferramentas de monitoramento como Prometheus e Grafana para coletar métricas detalhadas da aplicação.
-✒️ Autor
-Desenvolvido por Wendeel Marinho.
-<p>
-<a href="https://github.com/WendeelMarinho" target="_blank">
-<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-</a>
-<a href="https://www.linkedin.com/in/wendeel-marinho/" target="_blank">
-<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
-</a>
-</p>
+💡 Possíveis Melhorias Futuras
+Implementar um sistema de mensageria real (RabbitMQ/Kafka) para o NotificationService.
+Adicionar testes de integração (@SpringBootTest) com Testcontainers.
+Implementar segurança na API com Spring Security e JWT.
+Configurar um pipeline de CI/CD com GitHub Actions.
+
